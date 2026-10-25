@@ -1,6 +1,12 @@
 # Clickmóvil - Sistema de Gestión de Solicitudes
 
-## 📱 Descripción
+## Integrantes
+
+Vasquez Perez, Gabriel Alexander 
+Casanova Ito, Diego Andre
+Puelles Centurion, Anthony Jesús 
+
+##  Descripción
 
 **Clickmóvil** es una aplicación móvil de comercio electrónico enfocada en el sector tecnológico y de telefonía móvil. Diseñada para ofrecer una experiencia fluida y moderna, permite a los clientes explorar un catálogo de dispositivos inteligentes y registrar solicitudes de compra, cotización, soporte o servicio técnico mediante un sistema de gestión en memoria (CRUD).
 
@@ -16,7 +22,7 @@
 
 ---
 
-## ✅ Requerimientos Cumplidos
+##  Requerimientos Cumplidos
 
 - [x] **Pantalla de Login con validación**:
   - Control de estados para correo electrónico y contraseña.
