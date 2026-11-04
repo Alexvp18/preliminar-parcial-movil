@@ -10,7 +10,9 @@ import {
   StatusBar,
   Alert,
   SafeAreaView,
+  Image,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 import { CustomInput } from '../components/CustomInput';
@@ -85,10 +87,11 @@ export default function LoginRoute() {
 
           {/* ── Logo ─────────────────────────── */}
           <View style={styles.logoContainer}>
-            <View style={styles.logoCircle}>
-              <Text style={styles.logoEmoji}>📱</Text>
-            </View>
-            <Text style={styles.logoMarca}>Clickmóvil</Text>
+            <Image
+              source={require('../../assets/click-movil-logo.png')}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
           </View>
 
           {/* ── Encabezado ───────────────────── */}
@@ -143,7 +146,7 @@ export default function LoginRoute() {
 
           {/* ── Botón principal ──────────────── */}
           <CustomButton
-            title="Continuar  ➔"
+            title="Continuar"
             onPress={handleContinuar}
             loading={loading}
           />
@@ -157,12 +160,12 @@ export default function LoginRoute() {
 
           {/* ── Botones alternativos ─────────── */}
           <CustomButton
-            title="🌐  Continuar con Google"
+            title="Continuar con Google"
             onPress={handleGoogle}
             outline
           />
           <CustomButton
-            title="💬  Código por WhatsApp"
+            title="Codigo por WhatsApp"
             onPress={handleWhatsApp}
             outline
           />
@@ -213,23 +216,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
   },
-  logoCircle: {
-    width: 72,
-    height: 72,
-    borderRadius: 20,
-    backgroundColor: '#0449C4',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  logoEmoji: {
-    fontSize: 36,
-  },
-  logoMarca: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#0449C4',
-    letterSpacing: 0.5,
+  logoImage: {
+    height: 45,
+    width: 120,
   },
 
   // ── Encabezado ─────────────────────────────

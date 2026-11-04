@@ -12,7 +12,9 @@ import {
   Alert,
   Dimensions,
   Platform,
+  Image,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useAuth } from '../presentation/context/AuthContext';
 
@@ -25,7 +27,7 @@ interface Product {
   name: string;
   price: number;
   imageUrl: string;
-  emoji: string;
+  iconName: keyof typeof Ionicons.glyphMap;
   cardBg: string;
 }
 
@@ -55,7 +57,7 @@ const SEED_PRODUCTS: Product[] = [
     name: 'iPhone 18 Pro',
     price: 6820,
     imageUrl: '',
-    emoji: '📱',
+    iconName: 'phone-portrait-outline',
     cardBg: '#EEF2FF',
   },
   {
@@ -64,7 +66,7 @@ const SEED_PRODUCTS: Product[] = [
     name: 'Galaxy S26 Ultra',
     price: 5999,
     imageUrl: '',
-    emoji: '📲',
+    iconName: 'phone-portrait-outline',
     cardBg: '#E0F2FE',
   },
   {
@@ -73,7 +75,7 @@ const SEED_PRODUCTS: Product[] = [
     name: 'Xiaomi 15 Ultra',
     price: 3499,
     imageUrl: '',
-    emoji: '📡',
+    iconName: 'phone-portrait-outline',
     cardBg: '#FFF7ED',
   },
   {
@@ -82,7 +84,7 @@ const SEED_PRODUCTS: Product[] = [
     name: 'Hot 70 Pro',
     price: 799,
     imageUrl: '',
-    emoji: '☎️',
+    iconName: 'phone-portrait-outline',
     cardBg: '#F5F3FF',
   },
   {
@@ -91,7 +93,7 @@ const SEED_PRODUCTS: Product[] = [
     name: 'Edge 60 Fusion',
     price: 1299,
     imageUrl: '',
-    emoji: '🔵',
+    iconName: 'phone-portrait-outline',
     cardBg: '#ECFDF5',
   },
   {
@@ -100,7 +102,7 @@ const SEED_PRODUCTS: Product[] = [
     name: 'iPhone 18',
     price: 4999,
     imageUrl: '',
-    emoji: '⬛',
+    iconName: 'phone-portrait-outline',
     cardBg: '#F1F5F9',
   },
 ];
@@ -143,7 +145,7 @@ export default function HomeRoute() {
     >
       {/* Imagen del producto */}
       <View style={[styles.imageContainer, { backgroundColor: item.cardBg }]}>
-        <Text style={styles.imageEmoji}>{item.emoji}</Text>
+        <Ionicons name={item.iconName} size={48} color="#0449C4" />
       </View>
 
       {/* Marca en mayúsculas pequeñas y grises */}
@@ -161,7 +163,7 @@ export default function HomeRoute() {
         </Text>
         <TouchableOpacity
           style={styles.addBtn}
-          onPress={() => Alert.alert('Carrito', `${item.name} agregado 🛒`)}
+          onPress={() => Alert.alert('Carrito', `${item.name} agregado`)}
         >
           <Text style={styles.addBtnText}>+</Text>
         </TouchableOpacity>
@@ -180,20 +182,24 @@ export default function HomeRoute() {
         <View style={styles.header}>
           <View>
             <Text style={styles.headerSaludo}>
-              Hola, {usuarioActual?.nombre?.split(' ')[0] ?? 'Visitante'} 👋
+              Hola, {usuarioActual?.nombre?.split(' ')[0] ?? 'Visitante'}
             </Text>
-            <Text style={styles.headerMarca}>ClickMovil</Text>
+            <Image
+              source={require('../../assets/click-movil-logo.png')}
+              style={styles.headerLogoImage}
+              resizeMode="contain"
+            />
           </View>
 
           <View style={styles.headerIconos}>
-            {/* Búsqueda */}
+            {/* Busqueda */}
             <TouchableOpacity style={styles.iconoBtn}>
-              <Text style={styles.iconoEmoji}>🔍</Text>
+              <Ionicons name="search-outline" size={22} color="#1F2937" />
             </TouchableOpacity>
 
             {/* Carrito con badge "2" */}
             <TouchableOpacity style={styles.iconoBtn}>
-              <Text style={styles.iconoEmoji}>🛒</Text>
+              <Ionicons name="cart-outline" size={22} color="#1F2937" />
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>2</Text>
               </View>
@@ -224,7 +230,7 @@ export default function HomeRoute() {
 
         {/* ─── Barra de búsqueda ───────────── */}
         <View style={styles.searchBar}>
-          <Text style={styles.searchIcono}>🔍</Text>
+          <Ionicons name="search-outline" size={16} color="#9CA3AF" style={{ marginRight: 8 }} />
           <TextInput
             style={styles.searchInput}
             placeholder="Buscar por modelo o marca..."

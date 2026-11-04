@@ -43,7 +43,7 @@ export default function LoginScreen() {
     await new Promise((resolve) => setTimeout(resolve, 1200));
     setLoading(false);
 
-    // 💡 En producción: llamar al servicio de autenticación de Clickmóvil
+    // En produccion: llamar al servicio de autenticacion de Clickmovil
     console.log('[Clickmóvil] Acceso simulado →', { correo, password });
   };
 
@@ -69,10 +69,11 @@ export default function LoginScreen() {
 
           {/* ── Logo ─────────────────────────── */}
           <View style={styles.logoContainer}>
-            <View style={styles.logoCircle}>
-              <Text style={styles.logoText}>📱</Text>
-            </View>
-            <Text style={styles.logoMarca}>Clickmóvil</Text>
+            <Image
+              source={require('../../assets/click-movil-logo.png')}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
           </View>
 
           {/* ── Encabezado ───────────────────── */}
@@ -128,7 +129,7 @@ export default function LoginScreen() {
 
           {/* ── Botón principal ──────────────── */}
           <CustomButton
-            title={loading ? 'Verificando...' : 'Continuar  ➔'}
+            title={loading ? 'Verificando...' : 'Continuar'}
             onPress={handleContinuar}
             loading={loading}
           />
@@ -142,12 +143,12 @@ export default function LoginScreen() {
 
           {/* ── Botones alternativos ─────────── */}
           <CustomButton
-            title="🌐  Continuar con Google"
+            title="Continuar con Google"
             onPress={handleGoogle}
             outline
           />
           <CustomButton
-            title="💬  Código por WhatsApp"
+            title="Codigo por WhatsApp"
             onPress={handleWhatsApp}
             outline
           />
@@ -193,23 +194,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
   },
-  logoCircle: {
-    width: 72,
-    height: 72,
-    borderRadius: 20,
-    backgroundColor: '#0449C4',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  logoText: {
-    fontSize: 36,
-  },
-  logoMarca: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#0449C4',
-    letterSpacing: 0.5,
+  logoImage: {
+    height: 45,
+    width: 120,
   },
 
   // ── Encabezado ─────────────────────────────

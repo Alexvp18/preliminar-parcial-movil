@@ -10,7 +10,9 @@ import {
   StatusBar,
   Alert,
   SafeAreaView,
+  Image,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 import { CustomInput } from '../components/CustomInput';
@@ -196,9 +198,13 @@ export default function RegistroScreen() {
             </TouchableOpacity>
 
             <View style={styles.headerTitles}>
-              <Text style={styles.headerBrand}>CLICKMÓVIL</Text>
+              <Image
+                source={require('../../assets/click-movil-logo.png')}
+                style={styles.headerLogo}
+                resizeMode="contain"
+              />
               <Text style={styles.headerTitle}>Registro de Solicitudes</Text>
-              <Text style={styles.headerSubtitle}>Gestión de clientes y servicios (CRUD)</Text>
+              <Text style={styles.headerSubtitle}>Gestion de clientes y servicios (CRUD)</Text>
             </View>
 
             <View style={styles.badgeCounter}>
@@ -210,7 +216,7 @@ export default function RegistroScreen() {
           <View style={styles.formCard}>
             <View style={styles.formHeader}>
               <View style={styles.formHeaderIcon}>
-                <Text style={styles.formHeaderEmoji}>📝</Text>
+                <Ionicons name="create-outline" size={20} color="#0449C4" />
               </View>
               <View>
                 <Text style={styles.formHeaderTitle}>Nueva Solicitud</Text>
@@ -317,8 +323,8 @@ export default function RegistroScreen() {
           {/* Renderizado de la lista */}
           {solicitudes.length === 0 ? (
             <View style={styles.emptyContainer}>
-              <Text style={styles.emptyEmoji}>📋</Text>
-              <Text style={styles.emptyTitle}>Sin solicitudes aún</Text>
+              <Ionicons name="clipboard-outline" size={44} color="#9CA3AF" />
+              <Text style={styles.emptyTitle}>Sin solicitudes aun</Text>
               <Text style={styles.emptySubtitle}>
                 Completa el formulario de arriba y presiona "Guardar Solicitud".
               </Text>
@@ -338,7 +344,7 @@ export default function RegistroScreen() {
                       <Text style={styles.cardClientName} numberOfLines={1}>
                         {item.nombre}
                       </Text>
-                      <Text style={styles.cardPhone}>📞 {item.telefono}</Text>
+                      <Text style={styles.cardPhone}>{item.telefono}</Text>
                     </View>
                   </View>
 
@@ -363,7 +369,7 @@ export default function RegistroScreen() {
                     onPress={() => handleEliminarSolicitud(item.id, item.nombre)}
                     activeOpacity={0.7}
                   >
-                    <Text style={styles.deleteButtonIcon}>🗑️</Text>
+                    <Ionicons name="trash-outline" size={14} color="#EF4444" style={{ marginRight: 4 }} />
                     <Text style={styles.deleteButtonText}>Eliminar</Text>
                   </TouchableOpacity>
                 </View>
@@ -429,11 +435,9 @@ const styles = StyleSheet.create({
   headerTitles: {
     flex: 1,
   },
-  headerBrand: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: '#0449C4',
-    letterSpacing: 1.5,
+  headerLogo: {
+    height: 22,
+    width: 80,
     marginBottom: 2,
   },
   headerTitle: {
@@ -497,9 +501,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
-  },
-  formHeaderEmoji: {
-    fontSize: 20,
   },
   formHeaderTitle: {
     fontSize: 16,
@@ -701,10 +702,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
-  deleteButtonIcon: {
-    fontSize: 12,
-    marginRight: 4,
-  },
   deleteButtonText: {
     color: '#EF4444',
     fontSize: 12,
@@ -721,10 +718,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#E5E7EB',
     borderStyle: 'dashed',
-  },
-  emptyEmoji: {
-    fontSize: 44,
-    marginBottom: 10,
   },
   emptyTitle: {
     fontSize: 15,
