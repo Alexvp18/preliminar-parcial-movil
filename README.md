@@ -2,9 +2,9 @@
 
 ## Integrantes
 
-Vasquez Perez, Gabriel Alexander 
-Casanova Ito, Diego Andre
-Puelles Centurion, Anthony Jesús 
+- Vasquez Perez, Gabriel Alexander 
+- Casanova Ito, Diego Andre
+- Puelles Centurion, Anthony Jesús 
 
 ##  Descripción
 
