@@ -12,7 +12,6 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 import { CustomInput } from '../components/CustomInput';
@@ -61,7 +60,7 @@ export default function LoginRoute() {
       setPasswordError(true);
       Alert.alert(
         'Acceso denegado',
-        'El correo o la contraseña son incorrectos.\n\nPrueba con: admin@edu.pe / admin123',
+        'El correo o la contraseña son incorrectos.\n\nPrueba con: admin@edu.pe / admin123 o registra una nueva cuenta.',
       );
     }
   };
@@ -88,7 +87,7 @@ export default function LoginRoute() {
           {/* ── Logo ─────────────────────────── */}
           <View style={styles.logoContainer}>
             <Image
-              source={require('../../assets/click-movil-logo.png')}
+              source={require('../../assets/logo.png')}
               style={styles.logoImage}
               resizeMode="contain"
             />
@@ -170,11 +169,11 @@ export default function LoginRoute() {
             outline
           />
 
-          {/* ── Pie: enlace a registro ───────── */}
+          {/* ── Pie: enlace a Crear Cuenta (Nueva cuenta de usuario) ───────── */}
           <View style={styles.pie}>
             <Text style={styles.pieTexto}>¿No tienes cuenta? </Text>
             <TouchableOpacity
-              onPress={() => router.push('/registro')}
+              onPress={() => router.push('/crear-cuenta')}
               hitSlop={{ top: 8, bottom: 8 }}
             >
               <Text style={styles.pieLink}>Regístrate</Text>
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
 
-  // ── Formulario ─────────────────────────────
+  // ── Formulario ─────────────────────
   form: {
     marginBottom: 4,
   },

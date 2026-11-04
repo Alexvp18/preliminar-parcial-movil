@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ import { router } from 'expo-router';
 
 import { CustomInput } from '../components/CustomInput';
 import { CustomButton } from '../components/CustomButton';
+import { useAuth } from '../presentation/context/AuthContext';
 
 // ─────────────────────────────────────────────────────────────
 //  Interfaz TypeScript estricta — Requerimiento de la rúbrica
@@ -56,6 +57,19 @@ const TIPOS_SUGERIDOS = ['Compra', 'Reparación', 'Cotización', 'Garantía'];
 //  Pantalla: Registro de Solicitudes (CRUD en memoria)
 // ─────────────────────────────────────────────────────────────
 export default function RegistroScreen() {
+  const { usuarioActual } = useAuth();
+
+  // ── Proteger pantalla CRUD: solo accesible tras login ──────
+  useEffect(() => {
+    if (!usuarioActual) {
+      Alert.alert(
+        'Acceso restringido',
+        'Debes iniciar sesión para acceder al registro de solicitudes.',
+        [{ text: 'Iniciar sesión', onPress: () => router.replace('/login') }]
+      );
+    }
+  }, [usuarioActual]);
+
   // ── Estado del formulario actual ──────────
   const [form, setForm] = useState({
     nombre: '',
@@ -194,12 +208,12 @@ export default function RegistroScreen() {
               activeOpacity={0.7}
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             >
-              <Text style={styles.backArrow}>←</Text>
+              <Ionicons name="arrow-back" size={20} color="#0449C4" />
             </TouchableOpacity>
 
             <View style={styles.headerTitles}>
               <Image
-                source={require('../../assets/click-movil-logo.png')}
+                source={require('../../assets/logo.png')}
                 style={styles.headerLogo}
                 resizeMode="contain"
               />

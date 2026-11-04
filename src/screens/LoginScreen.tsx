@@ -9,48 +9,61 @@ import {
   StyleSheet,
   StatusBar,
   Image,
+  Alert,
   SafeAreaView,
 } from 'react-native';
+import { router } from 'expo-router';
 
 import { CustomInput } from '../components/CustomInput';
 import { CustomButton } from '../components/CustomButton';
+import { useAuth } from '../presentation/context/AuthContext';
 
 // ─────────────────────────────────────────────────────────────
 //  LoginScreen — Clickmóvil
 //  Paleta: Azul #0449C4 · Fondo #F8F9FA · Texto #1F2937
 // ─────────────────────────────────────────────────────────────
 export default function LoginScreen() {
+  const { login } = useAuth();
 
   // ── Estado del formulario ─────────────────
-  const [correo, setCorreo]       = useState('');
-  const [password, setPassword]   = useState('');
+  const [correo, setCorreo]               = useState('');
+  const [password, setPassword]           = useState('');
   const [correoError, setCorreoError]     = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [loading, setLoading]     = useState(false);
+  const [loading, setLoading]             = useState(false);
 
   // ── Validación al pulsar Continuar ────────
   const handleContinuar = async () => {
-    const correoVacio   = correo.trim().length === 0;
-    const passVacio     = password.trim().length === 0;
+    const correoVacio = correo.trim().length === 0;
+    const passVacio   = password.trim().length === 0;
 
     setCorreoError(correoVacio);
     setPasswordError(passVacio);
 
     if (correoVacio || passVacio) return;
 
-    // Simular llamada a API
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const exito = login(correo, password);
     setLoading(false);
 
-    // En produccion: llamar al servicio de autenticacion de Clickmovil
-    console.log('[Clickmóvil] Acceso simulado →', { correo, password });
+    if (exito) {
+      router.replace('/home');
+    } else {
+      setCorreoError(true);
+      setPasswordError(true);
+      Alert.alert(
+        'Acceso denegado',
+        'El correo o la contraseña son incorrectos.\n\nPuedes ingresar con: admin@edu.pe / admin123 o registrar una nueva cuenta.',
+      );
+    }
   };
 
-  const handleGoogle    = () => console.log('[Clickmóvil] Continuar con Google');
-  const handleWhatsApp  = () => console.log('[Clickmóvil] Código por WhatsApp');
-  const handleRegistrar = () => console.log('[Clickmóvil] Navegar a Registro');
-  const handleOlvide    = () => console.log('[Clickmóvil] Navegar a Recuperar contraseña');
+  const handleGoogle    = () => Alert.alert('Próximamente', 'Inicio con Google no disponible aún.');
+  const handleWhatsApp  = () => Alert.alert('Próximamente', 'Código por WhatsApp no disponible aún.');
+  const handleRegistrar = () => router.push('/crear-cuenta');
+  const handleOlvide    = () => Alert.alert('Próximamente', 'Recuperación de contraseña no disponible aún.');
 
   // ── Render ────────────────────────────────
   return (
@@ -70,7 +83,7 @@ export default function LoginScreen() {
           {/* ── Logo ─────────────────────────── */}
           <View style={styles.logoContainer}>
             <Image
-              source={require('../../assets/click-movil-logo.png')}
+              source={require('../../assets/logo.png')}
               style={styles.logoImage}
               resizeMode="contain"
             />
@@ -153,7 +166,7 @@ export default function LoginScreen() {
             outline
           />
 
-          {/* ── Pie: enlace a registro ───────── */}
+          {/* ── Pie: enlace a registro de usuario (Crear Cuenta) ── */}
           <View style={styles.pie}>
             <Text style={styles.pieTexto}>¿No tienes cuenta? </Text>
             <TouchableOpacity onPress={handleRegistrar} hitSlop={{ top: 8, bottom: 8 }}>
